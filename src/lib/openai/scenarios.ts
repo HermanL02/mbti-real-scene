@@ -26,27 +26,18 @@ export async function generateScenarios(
     return questions.map((q) => generateFallbackScenario(q, userProfile, locale));
   }
 
-  // Process questions in PARALLEL batches for speed
-  const batchSize = 10;
-  const batches: OriginalQuestion[][] = [];
-
-  for (let i = 0; i < questions.length; i += batchSize) {
-    batches.push(questions.slice(i, i + batchSize));
-  }
-
-  console.log(`Generating scenarios in ${batches.length} parallel batches (locale: ${locale})...`);
+  // Process ALL questions in parallel - 60 concurrent API calls
+  // This is the fastest possible approach: total time = time for 1 question
+  console.log(`Generating ${questions.length} scenarios in parallel (locale: ${locale})...`);
   const startTime = Date.now();
 
   try {
-    // Run all batches in parallel
-    const batchPromises = batches.map((batch) =>
-      generateScenarioBatch(openai, userProfile, batch, locale)
+    // Run ALL questions in parallel for maximum speed
+    const scenarioPromises = questions.map((question) =>
+      generateSingleScenario(openai, userProfile, question, locale)
     );
 
-    const batchResults = await Promise.all(batchPromises);
-
-    // Flatten results
-    const scenarios = batchResults.flat();
+    const scenarios = await Promise.all(scenarioPromises);
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
     console.log(`Generated ${scenarios.length} scenarios in ${duration}s`);
@@ -58,12 +49,13 @@ export async function generateScenarios(
   }
 }
 
-async function generateScenarioBatch(
+// Generate a single scenario - called 60 times in parallel
+async function generateSingleScenario(
   openai: any,
   userProfile: UserProfile,
-  questions: OriginalQuestion[],
+  question: OriginalQuestion,
   locale: string
-): Promise<Scenario[]> {
+): Promise<Scenario> {
   // Get translations using the t() helper
   const ageDescription = t(locale, `scenarios.ageDescriptions.${userProfile.ageGroup}`);
   const occupationBase = t(locale, `scenarios.occupations.${userProfile.occupation}`);
@@ -73,24 +65,19 @@ async function generateScenarioBatch(
   const interestsList = userProfile.interests.join(', ');
   const systemPrompt = t(locale, 'scenarios.systemPrompt');
 
-  const questionsForPrompt = questions.map((q) => ({
-    id: q.id,
-    text: q.text,
-    dimension: q.dimension,
-    polarity: q.polarity,
-  }));
-
-  // Use the prompt template from translations
-  const prompt = t(locale, 'scenarios.promptTemplate', {
+  // Simplified prompt for single question
+  const prompt = t(locale, 'scenarios.singlePromptTemplate', {
     ageDescription,
     occupationDescription,
     interests: interestsList,
-    questions: JSON.stringify(questionsForPrompt),
+    questionText: question.text,
+    dimension: question.dimension,
+    polarity: question.polarity,
   });
 
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini', // Much cheaper than gpt-4-turbo (~20x cheaper)
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
@@ -102,7 +89,7 @@ async function generateScenarioBatch(
         },
       ],
       temperature: 0.7,
-      max_tokens: 2500,
+      max_tokens: 500, // Only need ~200-300 tokens for 2 short scenarios
       response_format: { type: 'json_object' },
     });
 
@@ -112,22 +99,18 @@ async function generateScenarioBatch(
     }
 
     const parsed = JSON.parse(content);
-    const scenarioArray = parsed.scenarios || parsed;
 
-    return scenarioArray.map((s: { questionId: string; leftScenario: string; rightScenario: string }) => {
-      const question = questions.find((q) => q.id === s.questionId);
-      return {
-        questionId: s.questionId,
-        leftScenario: s.leftScenario,
-        rightScenario: s.rightScenario,
-        dimension: question?.dimension || 'EI',
-        polarity: question?.polarity || 'positive',
-      };
-    });
+    return {
+      questionId: question.id,
+      leftScenario: parsed.leftScenario,
+      rightScenario: parsed.rightScenario,
+      dimension: question.dimension,
+      polarity: question.polarity,
+    };
   } catch (error) {
-    console.error('Batch generation error:', error);
-    // Return fallback for this batch
-    return questions.map((q) => generateFallbackScenario(q, userProfile, locale));
+    console.error(`Error generating scenario for ${question.id}:`, error);
+    // Return fallback for this question
+    return generateFallbackScenario(question, userProfile, locale);
   }
 }
 

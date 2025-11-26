@@ -1,36 +1,22 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import type { MBTIResult, DimensionScore } from '@/types';
 
 interface TraitAnalyticsProps {
   result: MBTIResult;
 }
 
-const TRAIT_LABELS: Record<string, { first: string; second: string; description: string }> = {
-  EI: {
-    first: 'Extraverted',
-    second: 'Introverted',
-    description: 'Where you direct your energy',
-  },
-  SN: {
-    first: 'Sensing',
-    second: 'Intuitive',
-    description: 'How you take in information',
-  },
-  TF: {
-    first: 'Thinking',
-    second: 'Feeling',
-    description: 'How you make decisions',
-  },
-  JP: {
-    first: 'Judging',
-    second: 'Perceiving',
-    description: 'How you approach the world',
-  },
-};
+interface TraitBarProps {
+  score: DimensionScore;
+  labels: {
+    first: string;
+    second: string;
+    description: string;
+  };
+}
 
-function TraitBar({ score }: { score: DimensionScore }) {
-  const labels = TRAIT_LABELS[score.dimension];
+function TraitBar({ score, labels }: TraitBarProps) {
   const percentage = score.percentage;
   const isFirstDominant = percentage >= 50;
 
@@ -70,13 +56,22 @@ function TraitBar({ score }: { score: DimensionScore }) {
 }
 
 export function TraitAnalytics({ result }: TraitAnalyticsProps) {
+  const t = useTranslations('result');
   const dimensions = ['EI', 'SN', 'TF', 'JP'] as const;
 
   return (
     <div className="w-full max-w-md">
-      <h3 className="text-lg font-semibold text-white mb-4">Your Trait Breakdown</h3>
+      <h3 className="text-lg font-semibold text-white mb-4">{t('analytics.title')}</h3>
       {dimensions.map((dim) => (
-        <TraitBar key={dim} score={result.scores[dim]} />
+        <TraitBar
+          key={dim}
+          score={result.scores[dim]}
+          labels={{
+            first: t(`analytics.${dim}.first`),
+            second: t(`analytics.${dim}.second`),
+            description: t(`analytics.${dim}.description`),
+          }}
+        />
       ))}
     </div>
   );

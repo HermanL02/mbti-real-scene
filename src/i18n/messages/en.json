@@ -88,8 +88,31 @@
   },
   "result": {
     "title": "Your Personality Type",
+    "home": "Home",
+    "showAnalytics": "Show Analytics",
+    "hideAnalytics": "Hide Analytics",
     "shareButton": "Share Result",
     "retakeButton": "Retake Assessment",
+    "shareTitle": "I'm an {type} - {name}",
+    "linkCopied": "Link copied to clipboard!",
+    "githubCta": "Enjoyed this free assessment?",
+    "starOnGithub": "Star on GitHub",
+    "disclaimer": "This assessment is for self-discovery purposes. Results may vary.",
+    "summary": {
+      "title": "Assessment Summary",
+      "questionsAnswered": "Questions Answered",
+      "strongestPreference": "Strongest Preference"
+    },
+    "traits": {
+      "E": "Extraversion",
+      "I": "Introversion",
+      "S": "Sensing",
+      "N": "Intuition",
+      "T": "Thinking",
+      "F": "Feeling",
+      "J": "Judging",
+      "P": "Perceiving"
+    },
     "dimensions": {
       "title": "Your Dimensions",
       "EI": {
@@ -114,7 +137,48 @@
       }
     },
     "strengths": "Strengths",
-    "growthAreas": "Growth Areas"
+    "growthAreas": "Growth Areas",
+    "analytics": {
+      "title": "Your Trait Breakdown",
+      "EI": {
+        "first": "Extraverted",
+        "second": "Introverted",
+        "description": "Where you direct your energy"
+      },
+      "SN": {
+        "first": "Sensing",
+        "second": "Intuitive",
+        "description": "How you take in information"
+      },
+      "TF": {
+        "first": "Thinking",
+        "second": "Feeling",
+        "description": "How you make decisions"
+      },
+      "JP": {
+        "first": "Judging",
+        "second": "Perceiving",
+        "description": "How you approach the world"
+      }
+    },
+    "personalities": {
+      "INTJ": { "name": "Architect", "nickname": "The Mastermind", "description": "Imaginative and strategic thinkers with a plan for everything." },
+      "INTP": { "name": "Logician", "nickname": "The Thinker", "description": "Innovative inventors with an unquenchable thirst for knowledge." },
+      "ENTJ": { "name": "Commander", "nickname": "The Executive", "description": "Bold, imaginative and strong-willed leaders who find or make a way." },
+      "ENTP": { "name": "Debater", "nickname": "The Visionary", "description": "Smart and curious thinkers who cannot resist an intellectual challenge." },
+      "INFJ": { "name": "Advocate", "nickname": "The Counselor", "description": "Quiet and mystical, yet inspiring and tireless idealists." },
+      "INFP": { "name": "Mediator", "nickname": "The Healer", "description": "Poetic, kind and altruistic people, always eager to help a good cause." },
+      "ENFJ": { "name": "Protagonist", "nickname": "The Teacher", "description": "Charismatic and inspiring leaders who mesmerize their listeners." },
+      "ENFP": { "name": "Campaigner", "nickname": "The Champion", "description": "Enthusiastic, creative and sociable free spirits who find reason to smile." },
+      "ISTJ": { "name": "Logistician", "nickname": "The Inspector", "description": "Practical and fact-minded individuals whose reliability cannot be doubted." },
+      "ISFJ": { "name": "Defender", "nickname": "The Protector", "description": "Very dedicated and warm protectors, always ready to defend loved ones." },
+      "ESTJ": { "name": "Executive", "nickname": "The Supervisor", "description": "Excellent administrators, unsurpassed at managing things or people." },
+      "ESFJ": { "name": "Consul", "nickname": "The Provider", "description": "Extraordinarily caring, social and popular people, always eager to help." },
+      "ISTP": { "name": "Virtuoso", "nickname": "The Craftsman", "description": "Bold and practical experimenters, masters of all kinds of tools." },
+      "ISFP": { "name": "Adventurer", "nickname": "The Composer", "description": "Flexible and charming artists, always ready to explore something new." },
+      "ESTP": { "name": "Entrepreneur", "nickname": "The Dynamo", "description": "Smart, energetic and perceptive people who truly enjoy living on the edge." },
+      "ESFP": { "name": "Entertainer", "nickname": "The Performer", "description": "Spontaneous, energetic and enthusiastic people who make life exciting." }
+    }
   },
   "scenarios": {
     "ageDescriptions": {
@@ -131,6 +195,7 @@
     },
     "occupationDetailFormat": "{base} in {detail}",
     "systemPrompt": "You are a creative writer who crafts immersive mini-stories for personality assessments. Write in second person, present tense, painting vivid scenes that draw the reader in.",
+    "singlePromptTemplate": "Create TWO contrasting mini-story scenarios (2-3 sentences each) for this MBTI question.\n\nUSER: {ageDescription}, {occupationDescription}. Interests: {interests}\n\nQUESTION: {questionText}\nDIMENSION: {dimension}, POLARITY: {polarity}\n\nEach story should:\n- Paint a vivid scene the reader can imagine themselves in\n- Use sensory details and emotions\n- Feel like a moment from real life, not a choice\n\nPolarity guide: \"positive\" = leftScenario favors I/N/F/P, rightScenario favors E/S/T/J\n\"negative\" = leftScenario favors E/S/T/J, rightScenario favors I/N/F/P\n\nReturn JSON: {\"leftScenario\": \"...\", \"rightScenario\": \"...\"}",
     "promptTemplate": "Create immersive mini-story scenarios for an MBTI personality assessment.\n\nUSER: {ageDescription}, {occupationDescription}. Interests: {interests}\n\nFor each question, write TWO contrasting mini-stories (2-3 sentences each). Each story should:\n- Paint a vivid scene the reader can imagine themselves in\n- Use sensory details and emotions\n- Start with a situation, then show how they naturally respond\n- Feel like a moment from real life, not a choice to make\n\nEXAMPLE FORMAT:\n- Instead of: \"You would prefer to stay home alone\"\n- Write: \"It's Friday evening. Your phone buzzes with group chat notifications about weekend plans, but you find yourself sinking deeper into the couch, a warm cup of tea in hand, perfectly content with the quiet.\"\n\nRULES:\n- Write as mini-stories, NOT as choices (avoid \"You would choose...\" or \"You prefer...\")\n- Both stories should feel equally appealing and valid\n- Don't reveal which MBTI trait each favors\n- Make scenarios relevant to the user's life context\n- Polarity guide: \"positive\" = left favors I/N/F/P, right favors E/S/T/J\n\nQUESTIONS:\n{questions}\n\nReturn JSON: {\"scenarios\": [{\"questionId\": \"id\", \"leftScenario\": \"...\", \"rightScenario\": \"...\"}]}",
     "context": {
       "class": "class",

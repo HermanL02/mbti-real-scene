@@ -88,8 +88,31 @@
   },
   "result": {
     "title": "你的性格类型",
+    "home": "首页",
+    "showAnalytics": "显示分析",
+    "hideAnalytics": "隐藏分析",
     "shareButton": "分享结果",
     "retakeButton": "重新测评",
+    "shareTitle": "我是{type} - {name}",
+    "linkCopied": "链接已复制到剪贴板！",
+    "githubCta": "喜欢这个免费测评吗？",
+    "starOnGithub": "在GitHub上点赞",
+    "disclaimer": "本测评仅供自我探索参考，结果可能因人而异。",
+    "summary": {
+      "title": "测评摘要",
+      "questionsAnswered": "已回答问题",
+      "strongestPreference": "最强偏好"
+    },
+    "traits": {
+      "E": "外倾",
+      "I": "内倾",
+      "S": "实感",
+      "N": "直觉",
+      "T": "思考",
+      "F": "情感",
+      "J": "判断",
+      "P": "知觉"
+    },
     "dimensions": {
       "title": "你的维度分析",
       "EI": {
@@ -114,7 +137,48 @@
       }
     },
     "strengths": "你的优势",
-    "growthAreas": "成长空间"
+    "growthAreas": "成长空间",
+    "analytics": {
+      "title": "你的特质分析",
+      "EI": {
+        "first": "外倾型",
+        "second": "内倾型",
+        "description": "精力的来源方向"
+      },
+      "SN": {
+        "first": "实感型",
+        "second": "直觉型",
+        "description": "获取信息的方式"
+      },
+      "TF": {
+        "first": "思考型",
+        "second": "情感型",
+        "description": "做决定的方式"
+      },
+      "JP": {
+        "first": "判断型",
+        "second": "知觉型",
+        "description": "面对世界的态度"
+      }
+    },
+    "personalities": {
+      "INTJ": { "name": "建筑师", "nickname": "策划者", "description": "富有想象力的战略家，对一切都有计划。" },
+      "INTP": { "name": "逻辑学家", "nickname": "思想家", "description": "创新的发明家，对知识有着无尽的渴望。" },
+      "ENTJ": { "name": "指挥官", "nickname": "统帅", "description": "大胆、富有想象力、意志坚强的领导者，总能找到或开辟道路。" },
+      "ENTP": { "name": "辩论家", "nickname": "远见者", "description": "聪明好奇的思想家，无法抗拒智力上的挑战。" },
+      "INFJ": { "name": "提倡者", "nickname": "导师", "description": "安静而神秘，却又鼓舞人心、不知疲倦的理想主义者。" },
+      "INFP": { "name": "调停者", "nickname": "治愈者", "description": "富有诗意、善良利他的人，总是渴望帮助善良的事业。" },
+      "ENFJ": { "name": "主人公", "nickname": "教育家", "description": "富有魅力和感召力的领导者，能够吸引听众。" },
+      "ENFP": { "name": "竞选者", "nickname": "冠军", "description": "热情、有创造力和社交能力的自由精神，总能找到微笑的理由。" },
+      "ISTJ": { "name": "物流师", "nickname": "检查员", "description": "务实、注重事实的人，其可靠性毋庸置疑。" },
+      "ISFJ": { "name": "守卫者", "nickname": "保护者", "description": "非常敬业和温暖的保护者，随时准备保护所爱的人。" },
+      "ESTJ": { "name": "总经理", "nickname": "监督者", "description": "出色的管理者，在管理事务或人员方面无人能及。" },
+      "ESFJ": { "name": "执政官", "nickname": "供应者", "description": "非常关心他人、善于社交和受欢迎的人，总是渴望提供帮助。" },
+      "ISTP": { "name": "鉴赏家", "nickname": "工匠", "description": "大胆而实际的实验者，擅长使用各种工具。" },
+      "ISFP": { "name": "探险家", "nickname": "作曲家", "description": "灵活而迷人的艺术家，随时准备探索新事物。" },
+      "ESTP": { "name": "企业家", "nickname": "行动者", "description": "聪明、精力充沛、敏锐的人，真正享受生活在边缘。" },
+      "ESFP": { "name": "表演者", "nickname": "演艺人", "description": "自发、精力充沛、热情洋溢的人，让生活充满乐趣。" }
+    }
   },
   "scenarios": {
     "ageDescriptions": {
@@ -131,6 +195,7 @@
     },
     "occupationDetailFormat": "{base}，{detail}方向",
     "systemPrompt": "你是一个才华横溢的故事写手，擅长用细腻的笔触描绘生活场景。请用第二人称、现在时态，创作能让读者身临其境的微型故事。",
+    "singlePromptTemplate": "为这道MBTI测评题目创作两个对比的微型故事场景（每个2-3句话）。\n\n用户：{ageDescription}，{occupationDescription}。兴趣爱好：{interests}\n\n题目：{questionText}\n维度：{dimension}，极性：{polarity}\n\n每个故事应该：\n- 描绘一个生动的场景，让读者能想象自己置身其中\n- 运用感官细节和情绪描写\n- 像真实生活中的一个瞬间，而不是一个选择题\n\n极性指南：\"positive\" = leftScenario倾向 I/N/F/P，rightScenario倾向 E/S/T/J\n\"negative\" = leftScenario倾向 E/S/T/J，rightScenario倾向 I/N/F/P\n\n返回JSON格式：{\"leftScenario\": \"...\", \"rightScenario\": \"...\"}",
     "promptTemplate": "为MBTI性格测评创作沉浸式微型故事场景。\n\n用户：{ageDescription}，{occupationDescription}。兴趣爱好：{interests}\n\n为每个问题写两个对比的微型故事（每个2-3句话）。每个故事应该：\n- 描绘一个生动的场景，让读者能想象自己置身其中\n- 运用感官细节和情绪描写\n- 先设定情境，再展现自然的反应\n- 像真实生活中的一个瞬间，而不是一个选择题\n\n示例格式：\n- 不要写：\"你会选择一个人待在家里\"\n- 要写：\"周五傍晚，手机群消息响个不停，大家在讨论周末聚会。你窝在沙发里，捧着一杯热茶，听着窗外淅沥的雨声，嘴角不自觉地上扬——这样的安静时光，刚刚好。\"\n\n规则：\n- 写成微型故事，不要写成选择题（避免\"你会选择...\"\"你更喜欢...\"这样的表达）\n- 两个故事都应该同样吸引人、同样合理\n- 不要透露哪个MBTI特质对应哪个选项\n- 让场景贴合用户的生活背景\n- 极性指南：\"positive\" = 左侧倾向 I/N/F/P，右侧倾向 E/S/T/J\n\n问题：\n{questions}\n\n返回JSON格式：{\"scenarios\": [{\"questionId\": \"id\", \"leftScenario\": \"...\", \"rightScenario\": \"...\"}]}",
     "context": {
       "class": "课堂",
