@@ -1,0 +1,184 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "tryAgain": "Try Again",
+    "next": "Next",
+    "previous": "Previous",
+    "start": "Start",
+    "continue": "Continue",
+    "seeResults": "See Results"
+  },
+  "landing": {
+    "title": "Discover Your",
+    "titleHighlight": "True Self",
+    "subtitle": "Not who you want to be. Who you really are.",
+    "description": "Traditional MBTI tests fail because we answer as our ideal selves. Our AI creates personalized behavioral scenarios that reveal your authentic personality.",
+    "freeBadge": "100% Free · No signup required",
+    "startButton": "Begin Your Journey",
+    "features": {
+      "scenarios": {
+        "title": "Behavioral Scenarios",
+        "description": "Instead of agree/disagree, choose between realistic actions that reveal your true preferences."
+      },
+      "personalized": {
+        "title": "Personalized to You",
+        "description": "AI generates scenarios based on your age, occupation, and interests for maximum relevance."
+      },
+      "immersive": {
+        "title": "Immersive Experience",
+        "description": "Beautiful 3D visuals create a dreamlike atmosphere for deeper self-reflection."
+      }
+    }
+  },
+  "profile": {
+    "title": "Tell Us About Yourself",
+    "subtitle": "This helps us create scenarios that feel real and relevant to your life.",
+    "ageGroup": {
+      "label": "Age Group",
+      "teen": "Teen (13-17)",
+      "youngAdult": "Young Adult (18-25)",
+      "adult": "Adult (26-40)",
+      "mature": "Mature (41+)"
+    },
+    "occupation": {
+      "label": "Occupation",
+      "student": "Student",
+      "professional": "Professional",
+      "freelancer": "Freelancer",
+      "other": "Other"
+    },
+    "occupationDetail": {
+      "label": "Field/Major (Optional)",
+      "placeholder": "e.g., Computer Science, Marketing, Medicine..."
+    },
+    "interests": {
+      "label": "Interests (Select 3-5)",
+      "technology": "Technology",
+      "arts": "Arts & Design",
+      "sports": "Sports & Fitness",
+      "music": "Music",
+      "reading": "Reading",
+      "gaming": "Gaming",
+      "travel": "Travel",
+      "cooking": "Cooking",
+      "nature": "Nature",
+      "socializing": "Socializing",
+      "science": "Science",
+      "business": "Business"
+    },
+    "continueButton": "Continue to Assessment"
+  },
+  "assessment": {
+    "loading": {
+      "title": "Creating Your Personalized Scenarios",
+      "description": "Our AI is crafting 60 unique scenarios based on your profile..."
+    },
+    "question": {
+      "prompt": "Which scenario feels more like you?"
+    },
+    "slider": {
+      "leftLabel": "← More like this",
+      "centerLabel": "Drag to choose",
+      "rightLabel": "More like this →"
+    },
+    "progress": {
+      "answered": "{count} of {total} answered"
+    }
+  },
+  "result": {
+    "title": "Your Personality Type",
+    "shareButton": "Share Result",
+    "retakeButton": "Retake Assessment",
+    "dimensions": {
+      "title": "Your Dimensions",
+      "EI": {
+        "name": "Energy",
+        "left": "Introversion",
+        "right": "Extraversion"
+      },
+      "SN": {
+        "name": "Information",
+        "left": "Sensing",
+        "right": "Intuition"
+      },
+      "TF": {
+        "name": "Decisions",
+        "left": "Thinking",
+        "right": "Feeling"
+      },
+      "JP": {
+        "name": "Lifestyle",
+        "left": "Judging",
+        "right": "Perceiving"
+      }
+    },
+    "strengths": "Strengths",
+    "growthAreas": "Growth Areas"
+  },
+  "scenarios": {
+    "ageDescriptions": {
+      "teen": "Teen (13-17, high school)",
+      "young-adult": "Young adult (18-25, college/early career)",
+      "adult": "Adult (26-40, established career)",
+      "mature": "Mature adult (41+, experienced)"
+    },
+    "occupations": {
+      "student": "Student",
+      "professional": "Professional",
+      "freelancer": "Freelancer",
+      "other": "Other"
+    },
+    "occupationDetailFormat": "{base} in {detail}",
+    "systemPrompt": "You are a creative writer who crafts immersive mini-stories for personality assessments. Write in second person, present tense, painting vivid scenes that draw the reader in.",
+    "promptTemplate": "Create immersive mini-story scenarios for an MBTI personality assessment.\n\nUSER: {ageDescription}, {occupationDescription}. Interests: {interests}\n\nFor each question, write TWO contrasting mini-stories (2-3 sentences each). Each story should:\n- Paint a vivid scene the reader can imagine themselves in\n- Use sensory details and emotions\n- Start with a situation, then show how they naturally respond\n- Feel like a moment from real life, not a choice to make\n\nEXAMPLE FORMAT:\n- Instead of: \"You would prefer to stay home alone\"\n- Write: \"It's Friday evening. Your phone buzzes with group chat notifications about weekend plans, but you find yourself sinking deeper into the couch, a warm cup of tea in hand, perfectly content with the quiet.\"\n\nRULES:\n- Write as mini-stories, NOT as choices (avoid \"You would choose...\" or \"You prefer...\")\n- Both stories should feel equally appealing and valid\n- Don't reveal which MBTI trait each favors\n- Make scenarios relevant to the user's life context\n- Polarity guide: \"positive\" = left favors I/N/F/P, right favors E/S/T/J\n\nQUESTIONS:\n{questions}\n\nReturn JSON: {\"scenarios\": [{\"questionId\": \"id\", \"leftScenario\": \"...\", \"rightScenario\": \"...\"}]}",
+    "context": {
+      "class": "class",
+      "meeting": "meeting",
+      "school": "school",
+      "work": "work"
+    },
+    "fallback": {
+      "EI": {
+        "positive": {
+          "left": "It's Friday evening. Your phone lights up with party invitations, but you find yourself curled up on the couch with a book, the soft glow of a lamp your only company. The quiet feels like a warm blanket.",
+          "right": "It's Friday evening. Your phone buzzes and your eyes light up—friends are gathering downtown. You're already grabbing your jacket, energy coursing through you at the thought of laughter and conversation."
+        },
+        "negative": {
+          "left": "The {context} discussion heats up. Before you know it, you're on your feet, ideas flowing freely, drawing everyone into your enthusiasm. This is where you come alive.",
+          "right": "The {context} discussion swirls around you. You lean back, absorbing every word, connecting dots in your mind. When you finally speak, your thoughts have crystallized into something clear."
+        }
+      },
+      "SN": {
+        "positive": {
+          "left": "A new project lands on your desk. Your mind immediately drifts to the bigger picture—what could this become? You sketch out possibilities, patterns emerging like constellations in your imagination.",
+          "right": "A new project lands on your desk. Your hands are already moving, breaking it down into steps, gathering the tools you'll need. There's comfort in the concrete, the tangible, the real."
+        },
+        "negative": {
+          "left": "Walking through a garden, you notice the exact shade of green on each leaf, the texture of bark, the specific birdsong overhead. The present moment is vivid and complete.",
+          "right": "Walking through a garden, your mind wanders to what this place might look like in ten years, what stories these old trees could tell, what secrets the soil holds."
+        }
+      },
+      "TF": {
+        "positive": {
+          "left": "Your friend shares their work, eyes hopeful. You see the flaws, but you also see them—their effort, their vulnerability. Your words find a way to be honest and kind at once.",
+          "right": "Your friend shares their work, eyes hopeful. You dive straight into what could be improved—they asked for feedback, after all. Truth is the greatest gift you can give."
+        },
+        "negative": {
+          "left": "A major decision looms. You pull out paper, creating columns of pros and cons. Logic cuts through the noise, revealing the path forward with satisfying clarity.",
+          "right": "A major decision looms. You close your eyes, asking yourself: what feels right? What aligns with who you are? The answer rises from somewhere deeper than logic."
+        }
+      },
+      "JP": {
+        "positive": {
+          "left": "Weekend trip tomorrow. Your bag sits half-packed, and honestly? That's fine. The best adventures come from spontaneity, from saying yes to the unexpected turn in the road.",
+          "right": "Weekend trip tomorrow. Your itinerary is color-coded, reservations confirmed, bags packed by category. There's a deep satisfaction in knowing exactly how the days will unfold."
+        },
+        "negative": {
+          "left": "The final decision is made. You feel your shoulders drop with relief—no more weighing options, no more what-ifs. Closure is its own kind of freedom.",
+          "right": "Someone pushes for a final decision. You resist—why close doors when you don't have to? Possibilities feel like oxygen, and you're not ready to stop breathing."
+        }
+      }
+    }
+  }
+}
