@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { generateScenarios } from '@/lib/openai/scenarios';
 import { t } from '@/lib/i18n/server';
+import { defaultLocale } from '@/i18n/config';
 import type { GenerateScenariosRequest, Scenario, OriginalQuestion } from '@/types';
 
 export async function POST(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     // Get locale from cookie
     const cookieStore = await cookies();
-    const locale = cookieStore.get('locale')?.value || 'en';
+    const locale = cookieStore.get('locale')?.value || defaultLocale;
 
     if (!userProfile || !questions || questions.length === 0) {
       return NextResponse.json(
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     // Get locale for fallback
     const cookieStore = await cookies();
-    const locale = cookieStore.get('locale')?.value || 'en';
+    const locale = cookieStore.get('locale')?.value || defaultLocale;
 
     // Return fallback on error
     try {
